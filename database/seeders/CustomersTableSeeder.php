@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class CustomersTableSeeder extends Seeder
@@ -14,16 +15,23 @@ class CustomersTableSeeder extends Seeder
      */
     public function run()
     {
+        // Vaciar la tabla articles.
         Customer::truncate();
         $faker = \Faker\Factory::create();
-        // Crear artículos ficticios en la tabla
-        for($i = 0; $i < 10; $i++) {
-            Customer::create([
-                'name'=> $faker->firstName,
-                'lastname'=> $faker->lastName,
-                'document'=> $faker->fileExtension,
-            ]);
+        $users = User::all();
+        foreach ($users as $user) {
+        // Y ahora con este usuario creamos algunos articulos
+            $num_customers = 2;
+            for ($j = 0; $j < $num_customers; $j++) {
+                Customer::create([
+                    'name'=> $faker->firstName,
+                    'lastname'=> $faker->lastName,
+                    'document'=> $faker->fileExtension,
+                     'user_id'=> $user->id,
+                ]);
+            }
         }
+
 
     }
 }

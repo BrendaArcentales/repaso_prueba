@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Customer;
-use App\Models\Product;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(ProdcutsTableSeeder::class);
-        $this->call(CustomersTableSeeder::class);
+        Schema::disableForeignKeyConstraints();
         $this->call(UsersTableSeeder::class);
+        $this->call(CustomersTableSeeder::class);
+        $this->call(ProdcutsTableSeeder::class);
+
+        Schema::enableForeignKeyConstraints();
+
 
     }
 }
